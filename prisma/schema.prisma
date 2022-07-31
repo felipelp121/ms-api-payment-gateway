@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model address {
+  id          Int       @id @default(autoincrement())
+  user_id     Int
+  street      String?   @db.VarChar
+  number      Int?
+  complement  String?   @db.VarChar
+  locality    String?   @db.VarChar
+  city        String?   @db.VarChar
+  region      String?   @db.VarChar
+  region_code String?   @db.VarChar
+  country     String?   @db.VarChar
+  postal_code Int?
+  created_at  DateTime? @db.Timestamp(6)
+  updated_at  DateTime? @db.Timestamp(6)
+  users       users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model cart {
+  id         Int       @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  product    product   @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model charge {
+  id               Int       @id @default(autoincrement())
+  user_id          Int
+  uuid             String    @db.VarChar
+  status           String?   @db.VarChar
+  reference_id     String?   @db.VarChar
+  description      String?   @db.VarChar
+  total_value      Int?
+  total_value_paid Int?
+  refunded_value   Int?
+  created_at       DateTime? @db.Timestamp(6)
+  updated_at       DateTime? @db.Timestamp(6)
+  users            users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model payment_method {
+  id           Int       @id @default(autoincrement())
+  user_id      Int
+  type         String?   @db.VarChar
+  brand        String?   @db.VarChar
+  first_digits Int?
+  last_digits  Int?
+  exp_month    Int?
+  exp_year     Int?
+  name         String?   @db.VarChar
+  store        Boolean?
+  created_at   DateTime? @db.Timestamp(6)
+  updated_at   DateTime? @db.Timestamp(6)
+  users        users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model product {
+  id         Int       @id @default(autoincrement())
+  user_id    Int
+  value      Int
+  amount     Int?
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  users      users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cart       cart[]
+}
+
+model users {
+  id             Int              @id @default(autoincrement())
+  name           String?          @db.VarChar
+  email          String           @unique @db.VarChar
+  password       String           @db.VarChar
+  type_document  String?          @db.VarChar
+  document       String?          @unique @db.VarChar
+  birthdate      DateTime?        @db.Date
+  created_at     DateTime?        @db.Timestamp(6)
+  updated_at     DateTime?        @db.Timestamp(6)
+  address        address[]
+  cart           cart[]
+  charge         charge[]
+  payment_method payment_method[]
+  product        product[]
+}

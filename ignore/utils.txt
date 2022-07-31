@@ -1,0 +1,5 @@
+ERRO HANDLER:  https://www.luiztools.com.br/post/error-handling-em-node-js-com-express/
+
+Tirar o error handler de require e por como import
+
+lembrar de tirar todos os console.log do projeto
