@@ -3,3 +3,11 @@ ERRO HANDLER:  https://www.luiztools.com.br/post/error-handling-em-node-js-com-e
 Tirar o error handler de require e por como import
 
 lembrar de tirar todos os console.log do projeto
+
+Quando acaba de usar o prisma tem que dar disconnect?
+
+Instalar com --save  e  --dev , pra que e quando usar?
+
+
+created_at e updated_at o prisma não sabe lidar, 
+tirar o updated_at então e por o created_at como default current_timestamp 

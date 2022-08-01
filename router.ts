@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { errorHandler, signUp } from "./routes/mod";
+import * as routes from "./routes/mod";
 import express, { Request, Response } from "express";
 require("express-async-errors"); //try to change to import instead require
 dotenv.config();
@@ -9,15 +9,12 @@ app.use(express.json());
 export async function router() {
   app.post(
     "/" + process.env.URL_API + "/sign_up",
-    signUp,
+    routes.signUpRoute,
   );
 
   app.post(
     "/" + process.env.URL_API + "/sign_in",
-    (req: Request, res: Response) => {
-      console.log("user connected");
-      res.status(200).send({ "message": "sucess" });
-    },
+    routes.signInRoute,
   );
 
   app.route("/" + process.env.URL_API + "/cart")
@@ -46,5 +43,5 @@ export async function router() {
   app.listen("4000", () => {
     console.log("server running on port 4000");
   });
-  app.use(errorHandler);
+  app.use(routes.errorHandlerRoute);
 }

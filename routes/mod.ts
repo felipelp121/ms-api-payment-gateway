@@ -1,2 +1,3 @@
-export { errorHandler } from "./errorHandler";
-export { signUp } from "./signUp";
+export { errorHandlerRoute } from "./errorHandlerRoute";
+export { signUpRoute } from "./signUpRoute";
+export { signInRoute } from "./signInRoute";

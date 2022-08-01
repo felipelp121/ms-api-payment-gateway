@@ -1,8 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
+import { sign } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { signUpDTO } from "../dto/signUpDTO";
-export async function signUp(req: Request, res: Response, next: NextFunction) {
+dotenv.config();
+export async function signUpRoute(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const body: signUpDTO = req.body;
   if (
     !(
@@ -27,7 +34,6 @@ export async function signUp(req: Request, res: Response, next: NextFunction) {
   const salt = bcrypt.genSaltSync(8);
   const passwordHash = bcrypt.hashSync(password, salt);
 
-  //   console.log(name, email, password, type_document, document, birthdate);
   const prisma = new PrismaClient();
   const user = await prisma.users.create({
     data: {
@@ -39,6 +45,14 @@ export async function signUp(req: Request, res: Response, next: NextFunction) {
       birthdate: birthdate,
     },
   });
-  console.log(user);
-  res.status(201).send({ "message": "sucess" });
+  const secret = process.env.TOKEN_SECRET;
+  if (!secret) {
+    throw new Error("500");
+  }
+  const token = sign({ id: user.id }, secret, {
+    algorithm: "HS256",
+    expiresIn: 24 * 60 * 60,
+  });
+
+  res.status(201).send({ message: "success", token: token });
 }
