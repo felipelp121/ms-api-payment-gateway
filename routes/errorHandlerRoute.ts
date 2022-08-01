@@ -7,6 +7,8 @@ export async function errorHandlerRoute(
 ) {
   if (error.message === "400") {
     res.status(400).send({ message: "invalid syntax" });
+  } else if (error.message === "401") {
+    res.status(401).send({ message: "need a valid auth token" });
   } else if (error.message === "406") {
     res.status(406).send({ message: "data not found" });
   } else if (error.message === "incorrect email or password") {

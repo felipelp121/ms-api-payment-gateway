@@ -3,14 +3,14 @@ import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import { sign } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
-import { signUpDTO } from "../dto/signUpDTO";
+import { SignUpDTO } from "../dto/SignUpDTO";
 dotenv.config();
 export async function signUpRoute(
   req: Request,
   res: Response,
   next: NextFunction,
 ) {
-  const body: signUpDTO = req.body;
+  const body: SignUpDTO = req.body;
   if (
     !(
       body.name,
@@ -24,12 +24,8 @@ export async function signUpRoute(
     throw new Error("400");
   }
 
-  const name = body.name;
-  const email = body.email;
-  const password = body.password;
-  const type_document = body.type_document;
-  const document = body.document;
-  const birthdate = new Date(body.birthdate); //new Date add format
+  const { name, email, password, type_document, document } = body;
+  const birthdate = new Date(body.birthdate); //add format to new Date
 
   const salt = bcrypt.genSaltSync(8);
   const passwordHash = bcrypt.hashSync(password, salt);
@@ -43,6 +39,8 @@ export async function signUpRoute(
       type_document: type_document,
       document: document,
       birthdate: birthdate,
+      created_at: new Date(),
+      updated_at: new Date(),
     },
   });
   const secret = process.env.TOKEN_SECRET;

@@ -30,6 +30,7 @@ model cart {
   product_id Int
   created_at DateTime? @db.Timestamp(6)
   updated_at DateTime? @db.Timestamp(6)
+  amount     Int?
   product    product   @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   users      users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -67,12 +68,9 @@ model payment_method {
 
 model product {
   id         Int       @id @default(autoincrement())
-  user_id    Int
   value      Int
-  amount     Int?
   created_at DateTime? @db.Timestamp(6)
   updated_at DateTime? @db.Timestamp(6)
-  users      users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   cart       cart[]
 }
 
@@ -90,5 +88,4 @@ model users {
   cart           cart[]
   charge         charge[]
   payment_method payment_method[]
-  product        product[]
 }

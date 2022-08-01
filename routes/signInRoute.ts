@@ -3,14 +3,14 @@ import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import { sign } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
-import { signInDTO } from "../dto/signInDTO";
+import { SignInDTO } from "../dto/SignInDTO";
 dotenv.config();
 export async function signInRoute(
   req: Request,
   res: Response,
   next: NextFunction,
 ) {
-  const body: signInDTO = req.body;
+  const body: SignInDTO = req.body;
   if (
     !(
       body.email, body.password
@@ -19,8 +19,7 @@ export async function signInRoute(
     throw new Error("400");
   }
 
-  const email = body.email;
-  const password = body.password;
+  const { email, password } = body;
 
   const prisma = new PrismaClient();
   const user = await prisma.users.findFirst({

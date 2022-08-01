@@ -22,10 +22,7 @@ export async function router() {
       console.log("todos os produtos do carrinho");
       res.status(200).send({ "message": "sucess" });
     })
-    .post((req: Request, res: Response) => {
-      console.log("adicionei produto ao carrinho");
-      res.status(201).send({ "message": "sucess" });
-    })
+    .post(routes.cart.createCartRoute)
     .delete((req: Request, res: Response) => {
       console.log("deletei um produto do carrinho");
       res.status(200).send({ "message": "sucess" });
