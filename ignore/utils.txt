@@ -11,3 +11,6 @@ Instalar com --save  e  --dev , pra que e quando usar?
 
 created_at e updated_at o prisma não sabe lidar, 
 tirar o updated_at então e por o created_at como default current_timestamp 
+
+
+melhorar depois o deleteCart para pegar o amount também

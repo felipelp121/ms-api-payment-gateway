@@ -18,15 +18,10 @@ export async function router() {
   );
 
   app.route("/" + process.env.URL_API + "/cart")
-    .get((req: Request, res: Response) => {
-      console.log("todos os produtos do carrinho");
-      res.status(200).send({ "message": "sucess" });
-    })
+    .get(routes.cart.getCartRoute)
     .post(routes.cart.createCartRoute)
-    .delete((req: Request, res: Response) => {
-      console.log("deletei um produto do carrinho");
-      res.status(200).send({ "message": "sucess" });
-    });
+    .delete(routes.cart.deleteCartRoute);
+
   app.route("/" + process.env.URL_API + "/orders")
     .post((req: Request, res: Response) => {
       console.log("Fiz um pedido");

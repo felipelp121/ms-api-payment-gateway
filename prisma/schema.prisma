@@ -24,17 +24,6 @@ model address {
   users       users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model cart {
-  id         Int       @id @default(autoincrement())
-  user_id    Int
-  product_id Int
-  created_at DateTime? @db.Timestamp(6)
-  updated_at DateTime? @db.Timestamp(6)
-  amount     Int?
-  product    product   @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users      users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
 model charge {
   id               Int       @id @default(autoincrement())
   user_id          Int
@@ -71,7 +60,7 @@ model product {
   value      Int
   created_at DateTime? @db.Timestamp(6)
   updated_at DateTime? @db.Timestamp(6)
-  cart       cart[]
+  carts      carts[]
 }
 
 model users {
@@ -85,7 +74,18 @@ model users {
   created_at     DateTime?        @db.Timestamp(6)
   updated_at     DateTime?        @db.Timestamp(6)
   address        address[]
-  cart           cart[]
+  carts          carts[]
   charge         charge[]
   payment_method payment_method[]
+}
+
+model carts {
+  id         Int       @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  amount     Int
+  created_at DateTime? @db.Timestamp(6)
+  updated_at DateTime? @db.Timestamp(6)
+  product    product   @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users      users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
