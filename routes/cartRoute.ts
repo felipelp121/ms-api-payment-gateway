@@ -48,6 +48,7 @@ export async function createCartRoute(
       updated_at: new Date(),
     },
   });
+  console.log("just a git test");
   if (cart) {
     res.status(201).send({ message: "success" });
   } else {
