@@ -26,7 +26,6 @@ export async function errorHandlerRoute(
   ) {
     res.status(400).send({ message: "email already exist" });
   } else {
-    console.log(error.name); //change for production
-    res.status(500).send({ message: error.message }); //change for production
+    res.status(500).send({ message: "server error" });
   }
 }
