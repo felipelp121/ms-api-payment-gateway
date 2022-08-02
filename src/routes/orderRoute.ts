@@ -170,9 +170,7 @@ export async function orderRoute(
       .send({ ...order })
       .set("authorization", tokenPagseguro);
 
-    const paymentRes = JSON.parse(response.text);
-
-    res.status(paymentRes.status).send(paymentRes.text);
+    res.status(response.status).send(JSON.parse(response.text));
   } catch (err: any) {
     res.status(400).send({
       status: err.status,
