@@ -107,7 +107,7 @@ export async function orderRoute(
         postal_code: true,
       },
     });
-    await prisma.$disconnect();
+
     const { number, postal_code, ...spreadAddress } = { ...address };
     const addresNumber = typeof (number) === "number"
       ? number.toString()
@@ -120,7 +120,7 @@ export async function orderRoute(
     const paymentMethod = {
       type: type,
       installments: installments,
-      capture: true,
+      capture: capture,
       card: {
         number: cardNumber,
         exp_month: cardExpMonth,
@@ -170,7 +170,9 @@ export async function orderRoute(
       .send({ ...order })
       .set("authorization", tokenPagseguro);
 
-    res.status(response.status).send(JSON.parse(response.text));
+    const paymentRes = JSON.parse(response.text);
+
+    res.status(paymentRes.status).send(paymentRes.text);
   } catch (err: any) {
     res.status(400).send({
       status: err.status,

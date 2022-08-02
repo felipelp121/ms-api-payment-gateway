@@ -2,9 +2,9 @@
   "name": "api-e-commerce",
   "version": "1.0.0",
   "description": "api to use payment gateway",
-  "main": "index.ts",
+  "main": "./src/index.ts",
   "scripts": {
-    "start": "nodemon ./index.ts"
+    "start": "nodemon ./src/index.ts"
   },
   "author": "Felipe Lopes",
   "license": "MIT",
