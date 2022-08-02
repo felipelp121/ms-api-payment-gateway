@@ -1,8 +1,6 @@
-import dotenv from "dotenv";
 import * as routes from "./routes/mod";
-import express, { Request, Response } from "express";
-require("express-async-errors"); //try to change to import instead require
-dotenv.config();
+import express from "express";
+
 const app = express();
 app.use(express.json());
 
@@ -22,15 +20,14 @@ export async function router() {
     .post(routes.cart.createCartRoute)
     .delete(routes.cart.deleteCartRoute);
 
+  app.route("/" + process.env.URL_API + "/address")
+    .get(routes.address.getCartRoute)
+    .post(routes.address.createAddressRoute)
+    .delete(routes.address.deleteCartRoute);
+
   app.route("/" + process.env.URL_API + "/orders")
-    .post((req: Request, res: Response) => {
-      console.log("Fiz um pedido");
-      res.status(200).send({ "message": "sucess" });
-    })
-    .get((req: Request, res: Response) => {
-      console.log("Todos os meus pedidos");
-      res.status(200).send({ "message": "sucess" });
-    });
+    .post(routes.orders.orderRoute);
+  // .get(routes.orders.getOrdersRoute);
 
   app.listen("4000", () => {
     console.log("server running on port 4000");

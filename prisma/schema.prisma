@@ -60,6 +60,7 @@ model product {
   value      Int
   created_at DateTime? @db.Timestamp(6)
   updated_at DateTime? @db.Timestamp(6)
+  name       String?   @db.VarChar
   carts      carts[]
 }
 

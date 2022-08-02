@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import dotenv from "dotenv";
 import { sign } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { SignInDTO } from "../dto/SignInDTO";
-dotenv.config();
+
 export async function signInRoute(
   req: Request,
   res: Response,
@@ -27,7 +26,7 @@ export async function signInRoute(
       email: email,
     },
   });
-  console.log(user);
+  await prisma.$disconnect();
   if (!user) {
     throw new Error("incorrect email or password");
   }

@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import dotenv from "dotenv";
 import { sign } from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { SignUpDTO } from "../dto/SignUpDTO";
-dotenv.config();
+
 export async function signUpRoute(
   req: Request,
   res: Response,
@@ -43,6 +42,7 @@ export async function signUpRoute(
       updated_at: new Date(),
     },
   });
+  await prisma.$disconnect();
   const secret = process.env.TOKEN_SECRET;
   if (!secret) {
     throw new Error("500");

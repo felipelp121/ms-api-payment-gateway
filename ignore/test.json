@@ -1,0 +1,59 @@
+{
+	"reference_id": "a7c0fe19-63c7-4aa8-ab7a-37ba2963149e",
+	"customer": {
+		"name": "teste",
+		"email": "teste5@hotmail.com",
+		"tax_id": "87228140001"
+	},
+	"items": [
+		{
+			"reference_id": "item-7",
+			"name": "product 7",
+			"quantity": 1,
+			"unity_amount": 20000
+		}
+	],
+	"shipping": {
+		"address": {
+			"street": "street",
+			"complement": "Próximo ao hotel Galileu",
+			"locality": "Icaraí",
+			"city": "Niterói",
+			"region_code": "RJ",
+			"country": "BRA",
+			"number": "100",
+			"postal_code": "24230125"
+		}
+	},
+	"notification_urls": [
+		"https://meusite.com/notificacoes"
+	],
+	"charges": [
+		{
+			"reference_id": "item-7",
+			"description": "Loja Felipe Lopes",
+			"amount": {
+				"value": 20000,
+				"currency": "BRL"
+			},
+			"payment_method": {
+				"type": "CREDIT_CARD",
+				"installments": 1,
+				"capture": true,
+				"card": {
+					"number": "4111111111111111",
+					"exp_month": "12",
+					"exp_year": "2026",
+					"security_code": "123",
+					"holder": {
+						"name": "Jose da Silva"
+					},
+					"store": false
+				}
+			},
+			"notification_urls": [
+				"https://meusite.com/notificacoes"
+			]
+		}
+	]
+}

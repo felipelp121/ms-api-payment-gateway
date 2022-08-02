@@ -14,3 +14,5 @@ tirar o updated_at então e por o created_at como default current_timestamp
 
 
 melhorar depois o deleteCart para pegar o amount também
+
+criar uma rota para ver os produtos
